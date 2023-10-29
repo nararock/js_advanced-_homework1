@@ -70,7 +70,7 @@ class Manager {
     if (this.orders.has(client)){
       const order = this.orders.get(client);
       for (const iterator of args) {
-        order.set(iterator.name, (+order.get(iterator.name)||0)+iterator.quantity);      
+        order.set(iterator.name, (+order.get(iterator.name) || 0) + iterator.quantity);      
       }
     }
     else{
@@ -92,8 +92,7 @@ class Manager {
       if (!this.dishes.has(dish.name)){
         throw new Error(`${dish.type} "${dish.name}" - такого блюда не существует.`)
       }
-    }
-    return true;   
+    } 
   }
 
   /**
@@ -103,9 +102,9 @@ class Manager {
   consoleOrder(client){
     console.log(`Клиент ${client.firstname} заказал:`);
     const order = this.orders.get(client);
-    for (const iterator of order.entries()) {
-      const type = this.dishes.get(iterator[0]);
-      console.log(`${type} "${iterator[0]}" - ${iterator[1]}; готовит повар ${this.cooks.get(type)}`)
+    for (const [name, quantity] of order.entries()) {
+      const type = this.dishes.get(name);
+      console.log(`${type} "${name}" - ${quantity}; готовит повар ${this.cooks.get(type)}`)
     }
   }
 }
